@@ -1,12 +1,11 @@
 // Call the dataTables jQuery plugin
 $(document).ready(function() {
     cargarUsuarios();
-    alert(3434);
   $('#usuarios').DataTable();
 });
 
 async function cargarUsuarios() {
-      const request = await fetch('usuario/2345', {
+      const request = await fetch('usuarios', {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
@@ -15,5 +14,12 @@ async function cargarUsuarios() {
       });
       const usuarios = await request.json();
 
-      console.log(usuarios);
+      listadoHTML=""
+
+      for (usuario of usuarios) {
+        let usuarioHtml = '<tr><td>678</td><td>'+usuario.nombre+' '+usuario.apellido+'</td><td>'+usuario.email+'</td><td>'+usuario.telefono+'</td><td><a href="#" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i> </a></td></tr>';
+        listadoHTML += usuarioHtml
+      }
+
+      document.querySelector('#usuarios tbody').outerHTML = listadoHTML;
 }
