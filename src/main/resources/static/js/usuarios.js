@@ -30,5 +30,12 @@ async function cargarUsuarios() {
 }
 
 async function eliminarUsuario(id) {
-    alert(id)
+          const request = await fetch('api/usuarios/' + id , {
+            method: 'DELETE',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+          });
+
 }
