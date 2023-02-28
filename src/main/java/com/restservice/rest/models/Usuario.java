@@ -7,24 +7,26 @@ import jakarta.persistence.Table;
 import lombok.*;
 
 @Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "usuarios")
-@ToString @EqualsAndHashCode
 public class Usuario {
+
     @Id
-    @Column (name = "id")
+    @Getter @Setter @Column (name = "id")
     private Long id;
-    @Column (name = "nombre")
+
+    @Getter @Setter @Column (name = "nombre")
     private String nombre;
-    @Column (name = "apellido")
+
+    @Getter @Setter @Column (name = "apellido")
     private String apellido;
-    @Column (name = "email")
+
+    @Getter @Setter @Column (name = "email")
     private String email;
-    @Column (name = "telefono")
+
+    @Getter @Setter @Column (name = "telefono")
     private String telefono;
-    @Column (name = "password")
+
+    @Getter @Setter @Column (name = "password")
     private String password;
 
 }
