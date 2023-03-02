@@ -8,11 +8,17 @@ async function registrarUsuarios() {
     let datos={};
 
     datos.nombre = document.getElementById('txtNombre').value;
-    datos.appelido = document.getElementById('txtApellido').value;
+    datos.apellido = document.getElementById('txtApellido').value;
     datos.email = document.getElementById('txtEmail').value;
     datos.password = document.getElementById('txtPassword').value;
 
     let repetirPassword = document.getElementById('txtRepetirPassword').value;
+
+
+    if (repetirPassword != datos.password) {
+        alert('La contraseña que escribiste es distinta')
+        return;
+    }
 
       const request = await fetch('api/usuarios', {
         method: 'POST',
@@ -20,7 +26,7 @@ async function registrarUsuarios() {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({a: 1, b: 'Textual content'})
+        body: JSON.stringify(datos)
       });
       const usuarios = await request.json(datos);
 }
