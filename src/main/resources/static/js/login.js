@@ -18,5 +18,4 @@ async function iniciarSesion() {
         },
         body: JSON.stringify(datos)
       });
-      const usuarios = await request.json(datos);
 }
