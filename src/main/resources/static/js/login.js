@@ -18,4 +18,12 @@ async function iniciarSesion() {
         },
         body: JSON.stringify(datos)
       });
+
+      const respuesta = await request.text();
+      if (respuesta == "Ok") {
+        window.location.href = "usuarios.html"
+      } else {
+        alert("credenciales incorrectas")
+      }
+
 }
