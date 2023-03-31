@@ -1,9 +1,10 @@
 package com.restservice.rest.dao;
 
 import com.restservice.rest.models.Usuario;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
 public interface UsuarioDao {
 
     List<Usuario> getUsuarios();
@@ -12,5 +13,5 @@ public interface UsuarioDao {
 
     void registrar(Usuario usuario);
 
-    boolean verificarCredenciales(Usuario usuario);
+    Usuario obtenerUsuarioPorCredenciales(Usuario usuario);
 }

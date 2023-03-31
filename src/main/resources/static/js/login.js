@@ -20,7 +20,9 @@ async function iniciarSesion() {
       });
 
       const respuesta = await request.text();
-      if (respuesta == "Ok") {
+      if (respuesta != "Fail") {
+        localStorage.token = respuesta;
+        localStorage.email = datos.email;
         window.location.href = "usuarios.html"
       } else {
         alert("credenciales incorrectas")
