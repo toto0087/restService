@@ -2,6 +2,7 @@ package com.restservice.rest.controllers;
 
 import com.restservice.rest.dao.UsuarioDao;
 import com.restservice.rest.models.Usuario;
+import com.restservice.rest.utils.JWTUtil;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class UsuarioController {
     @Autowired
     private UsuarioDao usuarioDao;
 
+    @Autowired
+    private JWTUtil jwtUtil;
+
     @RequestMapping(value = "api/usuarios/{id}", method = RequestMethod.GET)
     public Usuario getUsuario( @PathVariable Long id ) {
         Usuario usuario = new Usuario();
@@ -28,9 +32,20 @@ public class UsuarioController {
     }
 
     @RequestMapping(value = "api/usuarios", method = RequestMethod.GET)
-    public List<Usuario> getUsuarios() {
+    public List<Usuario> getUsuarios(@RequestHeader(value = "Authorization") String token) {
+
+        if (!validarToken(token)) {
+            return null;
+        }
+
         return usuarioDao.getUsuarios();
     }
+
+    private boolean validarToken(String token) {
+        String usuarioId = jwtUtil.getKey(token);
+        return usuarioId != null;
+    }
+
 
     @RequestMapping(value = "api/usuarios", method = RequestMethod.POST)
     public void registrarUsuario(@RequestBody Usuario usuario) {
@@ -54,7 +69,10 @@ public class UsuarioController {
     }
 
     @RequestMapping(value = "api/usuarios/{id}", method = RequestMethod.DELETE)
-    public void eliminar(@PathVariable Long id) {
+    public void eliminar(@RequestHeader(value = "Authorization") String token,@PathVariable Long id) {
+        if (!validarToken(token)) {
+            return;
+        }
         usuarioDao.eliminar(id);
     }
 
